@@ -14,7 +14,7 @@ use Data::Dumper;
 
 my $class;
 BEGIN {
-    use_ok($class='SaikinDoyo::Model::Doyo::Feed');
+    use_ok($class='SaikinDoyo::Model::Doyo::Entry');
 }
 
 my $obj = new_ok $class;

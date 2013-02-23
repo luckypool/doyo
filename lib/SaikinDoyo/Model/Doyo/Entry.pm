@@ -1,4 +1,4 @@
-package SaikinDoyo::Model::Doyo::Feed;
+package SaikinDoyo::Model::Doyo::Entry;
 use strict;
 use warnings;
 use utf8;
@@ -7,7 +7,7 @@ use parent qw/SaikinDoyo::Model::Base/;
 use Date::Calc qw/Localtime/;
 
 use constant {
-    TABLE_FEED           => 'feed',
+    TABLE_NAME           => 'entry',
     DEFAULT_LIMIT        => 30,
     DEFAULT_OFFSET       => 0,
     DEFAULT_ORDER        => 'DESC',
@@ -15,7 +15,7 @@ use constant {
 };
 
 sub table {
-    return TABLE_FEED;
+    return TABLE_NAME;
 };
 
 sub validate_basic_params {
