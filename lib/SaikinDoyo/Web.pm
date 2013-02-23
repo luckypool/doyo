@@ -4,7 +4,11 @@ use warnings;
 use utf8;
 
 use Mojo::Base 'Mojolicious';
-use SaikinDoyo::Web::JSONRPC::Feed;
+use SaikinDoyo::Web::JSONRPC::Entry;
+
+use constant {
+    ENDPOINT_ENTRY => '/api/entry/rpc.json',
+};
 
 sub startup {
     my $self = shift;
@@ -15,7 +19,7 @@ sub startup {
     $self->plugin(
         'json_rpc_dispatcher',
         services => {
-            '/api/feed/rpc.json' => SaikinDoyo::Web::JSONRPC::Feed->new,
+            ENDPOINT_ENTRY() => SaikinDoyo::Web::JSONRPC::Entry->new,
         },
         exception_handler => sub {
              my ( $dispatcher, $err, $m ) = @_;

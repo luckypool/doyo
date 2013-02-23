@@ -2,8 +2,8 @@ DROP DATABASE if EXISTS doyo;
 CREATE DATABASE doyo;
 USE doyo;
 
-DROP TABLE if EXISTS feed;
-CREATE TABLE feed (
+DROP TABLE if EXISTS entry;
+CREATE TABLE entry (
     id INT unsigned NOT NULL AUTO_INCREMENT,
     nickname VARCHAR(32) NOT NULL,
     body VARCHAR(255) NOT NULL,

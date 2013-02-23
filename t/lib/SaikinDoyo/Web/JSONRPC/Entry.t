@@ -8,7 +8,7 @@ use Test::Mojo;
 
 my $class;
 BEGIN {
-    use_ok($class='SaikinDoyo::Web::JSONRPC::Feed');
+    use_ok($class='SaikinDoyo::Web::JSONRPC::Entry');
 }
 
 done_testing;
