@@ -42,15 +42,14 @@ sub find {
         offset => { regex => qr/^\d+$/, default => DEFAULT_OFFSET() },
         limit  => { regex => qr/^\d+$/, default => DEFAULT_LIMIT() },
         order  => { regex => qr/^(DESC|ASC)$/, default => DEFAULT_ORDER() },
-        find_type => { regex => qr/^(updated_at|created_at)$/, default => 'created_at' },
     });
 
     my $row = $self->slave->search_named(
         q{
-            SELECT * FROM %s WHERE %s BETWEEN :from AND :to ORDER BY %s %s LIMIT %s OFFSET %s
+            SELECT * FROM %s WHERE created_at BETWEEN :from AND :to ORDER BY created_at %s LIMIT %s OFFSET %s
         },
         $params,
-        [ $self->table, map { $params->{$_} } qw/find_type find_type order limit offset/]
+        [ $self->table, map { $params->{$_} } qw/order limit offset/]
     )->all;
     return unless $row;
     return [ map {$_->get_columns} @$row ];
