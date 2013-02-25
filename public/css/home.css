@@ -99,7 +99,9 @@ div.small {
 
 /* --- container accesory ---- */
 
-div.container .entryId {
+div.container .title {
+    font-size: 14px;
+    word-break:break-all;
     margin: 0;
     padding: 10px 20px 0 20px;
     border-top: 10px solid #d7af45;
@@ -109,13 +111,6 @@ div.container .entryId {
 div.container .body {
     margin: 0 20px;
     padding: 10px 0 10px 0;
-}
-
-div.container .body .title {
-    margin: 0;
-    padding: 5px 0;
-    color: #333;
-    border-top: 1px solid #ccc;
 }
 
 div.container .body .detail {

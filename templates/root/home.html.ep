@@ -6,14 +6,13 @@
 <!-- begin: TEMPLATE -->
 <div id="container_template">
   <div class="container small left">
-    <h3 class="entryId">${nickName} - #${entryId}</h3>
+    <h4 class="title">${nickName}</h4>
     <div class="body">
-      <h3 class="title">${title}</h3>
       <p class="detail">${detail}</p>
       <ul class="property">
         <li>${createdAt}</li>
       </ul>
-      <div class="footer">footer</div>
+      <div class="footer">#${entryId}</div>
     </div>
   </div>
 </div>

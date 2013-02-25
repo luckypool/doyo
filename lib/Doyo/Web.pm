@@ -5,6 +5,7 @@ use utf8;
 
 use Mojo::Base 'Mojolicious';
 use Doyo::Web::JSONRPC::Entry;
+use Data::Dumper;
 
 use constant {
     ENDPOINT_ENTRY => '/api/entry/rpc.json',
@@ -26,6 +27,7 @@ sub startup {
              # $dispatcher is the dispatcher Mojolicious::Controller object
              # $err is $@ received from the exception
              # $m is the MojoX::JSON::RPC::Dispatcher::Method object to be returned.
+             return $m->invalid_params($err->{message}) if defined $err->{message};
              return $m->invalid_params;
         }
     );
