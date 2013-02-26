@@ -34,22 +34,44 @@ sub get_update_params {
     };
 }
 
-sub find {
+sub find_by_nickname {
     my $self = shift;
     my $params = Params::Validate::validate(@_, {
-        from   => { regex => qr/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/, default => $self->time_to_mysqldatetime(time-DEFAULT_TIME_TO_FIND()) },
-        to     => { regex => qr/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/, default => $self->time_to_mysqldatetime(time) },
+        nickname => 1,
         offset => { regex => qr/^\d+$/, default => DEFAULT_OFFSET() },
         limit  => { regex => qr/^\d+$/, default => DEFAULT_LIMIT() },
         order  => { regex => qr/^(DESC|ASC)$/, default => DEFAULT_ORDER() },
     });
+    my $row = $self->slave->search(
+        $self->table, {
+            nickname => $params->{nickname}
+        }, {
+            limit    => $params->{limit},
+            offset   => $params->{offset},
+            order_by => {
+                id => $params->{order}
+            },
+        }
+    )->all;
+    return unless $row;
+    return [ map {$_->get_columns} @$row ];
+}
 
-    my $row = $self->slave->search_named(
-        q{
-            SELECT * FROM %s WHERE created_at BETWEEN :from AND :to ORDER BY created_at %s LIMIT %s OFFSET %s
-        },
-        $params,
-        [ $self->table, map { $params->{$_} } qw/order limit offset/]
+sub find {
+    my $self = shift;
+    my $params = Params::Validate::validate(@_, {
+        offset => { regex => qr/^\d+$/, default => DEFAULT_OFFSET() },
+        limit  => { regex => qr/^\d+$/, default => DEFAULT_LIMIT() },
+        order  => { regex => qr/^(DESC|ASC)$/, default => DEFAULT_ORDER() },
+    });
+    my $row = $self->slave->search(
+        $self->table, undef, {
+            limit    => $params->{limit},
+            offset   => $params->{offset},
+            order_by => {
+                id => $params->{order}
+            },
+        }
     )->all;
     return unless $row;
     return [ map {$_->get_columns} @$row ];
