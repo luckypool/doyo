@@ -97,7 +97,7 @@ subtest q/find/ => sub {
     };
 
     # 時は動き出す・・・！
-    # default では 24 時間前までのものをDESCで最大30件とってくる
+    # default では DESCで最大30件とってくる
     my $rows = $obj->find();
 
     map {
@@ -105,7 +105,7 @@ subtest q/find/ => sub {
         my $got = shift @$rows;
         delete $got->{id};
         cmp_deeply $_, $got, "ok $_->{created_at}";
-    } splice @expected_list, 0, 24;
+    } splice @expected_list, 0, 30;
     is_deeply $rows, [], 'length ok';
 
     Test::MockTime::restore_time();
